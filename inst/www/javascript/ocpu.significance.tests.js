@@ -65,14 +65,14 @@ function performTTest(groupA, groupB, varianceEqual, paired)
             multiVariateTestResults["effect-size-type"] = "d";
             multiVariateTestResults["formula"] = variableList["dependent"][0] + " ~ " + variableList["independent"][0] + "(" + variableList["independent-levels"] + ")";
 
-            //add to log
-            logResult();
-
+            
             //drawing stuff
             removeElementsByClassName("completeLines");
 
             displaySignificanceTestResults();
             setReportingText(multiVariateTestResults["formula"]);
+
+            logResult();
             
         });
         
@@ -131,14 +131,15 @@ function performTTest(groupA, groupB, varianceEqual, paired)
         multiVariateTestResults["effect-size-type"] = "d";
         multiVariateTestResults["formula"] = variableList["dependent"][0] + " ~ " + variableList["independent"][0] + "(" + variableList["independent-levels"] + ")";
 
-        //add to log
-        logResult();
-
+        
         //drawing stuff
         removeElementsByClassName("completeLines");
 
         displaySignificanceTestResults();
         setReportingText(multiVariateTestResults["formula"]);
+
+
+        logResult();
     }
 }
 
@@ -173,13 +174,15 @@ function performMannWhitneyTest(groupA, groupB)
             multiVariateTestResults["effect-size-type"] = "r";
             multiVariateTestResults["formula"] = variableList["dependent"][0] + " ~ " + variableList["independent"][0] + "(" + variableList["independent-levels"] + ")";
 
-            logResult();
+            
 
             //drawing stuff
             removeElementsByClassName("completeLines");           
 
             displaySignificanceTestResults();    
             setReportingText(multiVariateTestResults["formula"]);                  
+
+            logResult();
         });
         
         //if R returns an error, alert the error message
@@ -204,13 +207,15 @@ function performMannWhitneyTest(groupA, groupB)
         multiVariateTestResults["effect-size-type"] = "r";
         multiVariateTestResults["formula"] = variableList["dependent"][0] + " ~ " + variableList["independent"][0] + "(" + variableList["independent-levels"] + ")";
 
-        logResult();
+        
 
         //drawing stuff
         removeElementsByClassName("completeLines");           
 
         displaySignificanceTestResults();  
         setReportingText(multiVariateTestResults["formula"]);
+
+        logResult();
     }
 }
 
@@ -245,13 +250,14 @@ function performWilcoxonSignedRankTest(groupA, groupB)
             multiVariateTestResults["effect-size-type"] = "r";
             multiVariateTestResults["formula"] = variableList["dependent"][0] + " ~ " + variableList["independent"][0] + "(" + variableList["independent-levels"] + ")";
             
+            setReportingText(multiVariateTestResults["formula"]);                 
             logResult();                  
           
             //drawing stuff
             removeElementsByClassName("completeLines");           
 
             displaySignificanceTestResults();    
-            setReportingText(multiVariateTestResults["formula"]);                 
+            
         });
         
         //if R returns an error, alert the error message
@@ -277,13 +283,15 @@ function performWilcoxonSignedRankTest(groupA, groupB)
         multiVariateTestResults["effect-size-type"] = "r";
         multiVariateTestResults["formula"] = variableList["dependent"][0] + " ~ " + variableList["independent"][0] + "(" + variableList["independent-levels"] + ")";
         
+        setReportingText(multiVariateTestResults["formula"]);
+
         logResult();                  
       
         //drawing stuff
         removeElementsByClassName("completeLines");           
 
         displaySignificanceTestResults(); 
-        setReportingText(multiVariateTestResults["formula"]);
+        
     }
 }
 
@@ -359,7 +367,7 @@ function performWelchANOVA(dependentVariable, independentVariable)
             multiVariateTestResults["effect-size-type"] = "ηS";
             multiVariateTestResults["formula"] = dependentVariable + " ~ " + independentVariable + "(" + variableList["independent-levels"] + ")";
             
-            logResult();       
+            
           
             //drawing stuff
             removeElementsByClassName("completeLines"); 
@@ -367,6 +375,8 @@ function performWelchANOVA(dependentVariable, independentVariable)
             displaySignificanceTestResults();            
             setReportingText(multiVariateTestResults["formula"]);       
             drawPairwisePostHocComparisonsButtonWithHelpText(); 
+
+            logResult();       
         });
         
         //if R returns an error, alert the error message
@@ -394,7 +404,7 @@ function performWelchANOVA(dependentVariable, independentVariable)
         multiVariateTestResults["effect-size-type"] = "ηS";
         multiVariateTestResults["formula"] = dependentVariable + " ~ " + independentVariable + "(" + variableList["independent-levels"] + ")";
         
-        logResult();       
+        
       
         //drawing stuff
         removeElementsByClassName("completeLines"); 
@@ -402,6 +412,8 @@ function performWelchANOVA(dependentVariable, independentVariable)
         displaySignificanceTestResults();        
         setReportingText(multiVariateTestResults["formula"]);
         drawPairwisePostHocComparisonsButtonWithHelpText();
+
+        logResult();       
     }
 }
 
@@ -439,13 +451,14 @@ function performKruskalWallisTest(dependentVariable, independentVariable)
             multiVariateTestResults["effect-size-type"] = "ηS";
             multiVariateTestResults["formula"] = variableList["dependent"] + " ~ " + variableList["independent"] + "(" + variableList["independent-levels"] + ")";
 
-            logResult();
             //drawing stuff
             removeElementsByClassName("completeLines");   
 
             displaySignificanceTestResults();            
             setReportingText(multiVariateTestResults["formula"]);     
             drawPairwisePostHocComparisonsButtonWithHelpText(); 
+
+            logResult();
         });
         
         //if R returns an error, alert the error message
@@ -473,13 +486,14 @@ function performKruskalWallisTest(dependentVariable, independentVariable)
         multiVariateTestResults["effect-size-type"] = "ηS";
         multiVariateTestResults["formula"] = variableList["dependent"] + " ~ " + variableList["independent"] + "(" + variableList["independent-levels"] + ")";
 
-        logResult();
         //drawing stuff
         removeElementsByClassName("completeLines");   
 
         displaySignificanceTestResults();        
         setReportingText(multiVariateTestResults["formula"]);
         drawPairwisePostHocComparisonsButtonWithHelpText();
+
+        logResult();
     }
 }
 
@@ -519,8 +533,7 @@ function performOneWayRepeatedMeasuresANOVA(dependentVariable, independentVariab
             multiVariateTestResults["formula"] = variableList["dependent"][0] + " ~ " + variableList["independent"][0] + " ( " + variableList["independent-levels"] + ")";
             multiVariateTestResults["pIsCorrected"] = output.pIsCorrected.toString();
 
-            logResult();
-      
+        
             //drawing stuff
             removeElementsByClassName("completeLines");
 
@@ -528,6 +541,8 @@ function performOneWayRepeatedMeasuresANOVA(dependentVariable, independentVariab
             resultsFromANOVA = setReportingText(multiVariateTestResults["formula"]);
             setReportingText(multiVariateTestResults["formula"]);  
             drawPairwisePostHocComparisonsButtonWithHelpText();          
+
+            logResult();
         });
         
         //if R returns an error, alert the error message
@@ -557,7 +572,7 @@ function performOneWayRepeatedMeasuresANOVA(dependentVariable, independentVariab
         multiVariateTestResults["formula"] = variableList["dependent"][0] + " ~ " + variableList["independent"][0] + " ( " + variableList["independent-levels"] + ")";
         multiVariateTestResults["pIsCorrected"] = output.pIsCorrected.toString();
     
-        logResult();
+        
   
         //drawing stuff
         removeElementsByClassName("completeLines");
@@ -566,6 +581,8 @@ function performOneWayRepeatedMeasuresANOVA(dependentVariable, independentVariab
         resultsFromANOVA = setReportingText(multiVariateTestResults["formula"]);
         setReportingText(multiVariateTestResults["formula"]);  
         drawPairwisePostHocComparisonsButtonWithHelpText(); 
+
+        logResult();
     }
 }
 
@@ -601,7 +618,7 @@ function performFriedmanTest(dependentVariable, independentVariable)
             multiVariateTestResults["effect-size-type"] = "ηS";       
             multiVariateTestResults["formula"] = dependentVariable + " ~ " + independentVariable;
 
-            logResult();
+            
 
             //drawing stuff
             removeElementsByClassName("completeLines");           
@@ -609,6 +626,8 @@ function performFriedmanTest(dependentVariable, independentVariable)
             displaySignificanceTestResults();               
             setReportingText(multiVariateTestResults["formula"]);
             drawPairwisePostHocComparisonsButtonWithHelpText();
+
+            logResult();
         });
         
         //if R returns an error, alert the error message
@@ -635,7 +654,7 @@ function performFriedmanTest(dependentVariable, independentVariable)
         multiVariateTestResults["effect-size"] = output.etaSquared;
         multiVariateTestResults["effect-size-type"] = "ηS";       
         multiVariateTestResults["formula"] = dependentVariable + " ~ " + independentVariable;
-        logResult();
+        
 
         //drawing stuff
         removeElementsByClassName("completeLines");           
@@ -643,6 +662,8 @@ function performFriedmanTest(dependentVariable, independentVariable)
         displaySignificanceTestResults();           
         setReportingText(multiVariateTestResults["formula"]);
         drawPairwisePostHocComparisonsButtonWithHelpText();
+
+        logResult();
     }
 }
 

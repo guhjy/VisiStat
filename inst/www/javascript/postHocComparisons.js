@@ -249,7 +249,8 @@ function renderPostHocComparisonTable()
                     .attr("y", TOP + tableSize + bottomMargin/2)
                     .attr("text-anchor", "middle")
                     .attr("font-size", fontSizes["display text"])
-                    .text("Click on each cell to view details");
+                    .text("Click on each cell to view details")
+                    .attr("class", "postHocComparisonTable");
 
     var legendText = ["= : distributions are not significantly diffferent", String.fromCharCode(8800) + ": distributions are significantly different"];
     
@@ -262,6 +263,7 @@ function renderPostHocComparisonTable()
                     .attr("text-anchor", "middle")
                     .attr("font-size", fontSizes["display text"])
                     .text(legendText[i])
+                    .attr("class", "postHocComparisonTable");
     }
 }
 

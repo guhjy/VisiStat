@@ -15,7 +15,7 @@ function callBackForPerformOneWayANOVA(output)
 	multiVariateTestResults["effect-size-type"] = "ηS";
 	multiVariateTestResults["formula"] = variableList["dependent"][0] + " ~ " + variableList["independent"][0] + "(" + variableList["independent-levels"] + ")";
 
-	logResult();                           
+	
 
 	//drawing stuff
 	removeElementsByClassName("completeLines");           
@@ -23,4 +23,6 @@ function callBackForPerformOneWayANOVA(output)
 	displaySignificanceTestResults();                  
 	setReportingText(multiVariateTestResults["formula"]);     
 	drawPairwisePostHocComparisonsButtonWithHelpText();
+
+	logResult();                           
 }

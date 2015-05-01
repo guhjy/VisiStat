@@ -258,10 +258,29 @@ function updateHistory(researchQuestion)
     d3.selectAll(".selectedEntryIndicators").attr("style", "display: none;");
 
     addEntryToHistory(researchQuestion, numberOfEntriesInHistory);
+    var ID = "checkbox_" + numberOfEntriesInHistory;
+
+    var index = ID.split("_")[1]; // Get index
+    var RQ = listOfResearchQuestions[index];                    
+
+    // if(d3.select("#checkbox_" + index).attr("src") == "images/checkOff.png") // Is checked?
+    // {
+         // Generate report                        
+        addEntryToReport(reportingTextsArray[researchQuestion], index);                        
+
+    //     d3.select("#checkbox_" + index).attr("src", "images/checkOn.png");
+    // }                   
+    // else if(d3.select("#checkbox_" + index).attr("src") == "images/checkOn.png") // Is un-checked?
+    // {
+    //     // Remove report
+    //     d3.select("#report_" + index).remove();
+
+    //     d3.select("#checkbox_" + index).attr("src", "images/checkOff.png");
+    // }
     
     numberOfEntriesInHistory++;
 
-    checkIfOverTesting();
+    root.VisiStat.OverTesting.checkIfOverTesting();
 }
 
 // Plots the default visualisation/visualisation explicitly selected by the user
@@ -423,16 +442,19 @@ function resetSVGCanvas()
 
 function showResetButton()
 {
+    return;
     d3.selectAll(".resetButton").attr("display", "inline");
 }
 
 function drawResetButton()
 {
+    return;
     drawButton("Reset selection", "resetButton", plotPanelWidth - 70, plotPanelHeight - 50, "plotCanvas");
 }
 
 function hideResetButton()
 {
+    return;
     d3.selectAll(".resetButton").attr("display", "none");
 }
 
@@ -454,6 +476,8 @@ function drawButton(buttonText, className, cx, cy, canvasID, disabled)
     if(typeof(cy) === 'undefined') cy = buttonsPanelHeight/2;
     if(typeof(canvasID) === 'undefined') canvasID = "buttonCanvas";   
     if(typeof(disabled) === 'undefined') disabled = false;
+
+    if(disabled) return;
 
     var canvas = d3.select("#" + canvasID);       
 
@@ -494,10 +518,9 @@ function drawButton(buttonText, className, cx, cy, canvasID, disabled)
             .attr("y", buttonTop)
             .attr("width", buttonWidth)
             .attr("height", buttonHeight)
-            .attr("rx", 10)
-            .attr("ry", 10)
+            .attr("rx", 4)
+            .attr("ry", 4)
             .attr("fill", buttonFill)            
-            .attr("filter", buttonFilter)
             .attr("stroke", "black")
             .attr("id", "button")
             .attr("class", className);
@@ -655,7 +678,7 @@ function drawAssumptionNodes(postHocComparisonsArePossible)
                     .attr("x", assumptionNodesLeftOffset + assumptionsNodeSize*Math.sqrt(2) + assumptionNodesMargin)  
                     .attr("y", assumptionNodesMargin + i*2*assumptionsNodeSize + (assumptionsNodeSize*Math.sqrt(2))/2)
                     .attr("font-size", fontSizeAssumptions )
-                    .attr("text-decoration", "underline")
+                    // .attr("text-decoration", "underline")
                     .attr("fill", "black")
                     .text(assumptionsText[assumptions[i]])
                     .attr("id", assumptions[i])
@@ -677,6 +700,7 @@ function drawAssumptionNodes(postHocComparisonsArePossible)
                                 .attr("transform", "rotate (45 " + (assumptionNodesLeftOffset + (assumptionsNodeSize/2)) + " " + ((i*2*assumptionsNodeSize) + assumptionNodesMargin + (assumptionsNodeSize/2)) + ")")
                                 .attr("fill", "white")
                                 .attr("stroke", "black")
+                                .attr("stroke-width", "3px")
                                 .attr("id", assumptions[i])
                                 .attr("class", "assumptionNodes");                  
         }  
@@ -688,6 +712,7 @@ function drawAssumptionNodes(postHocComparisonsArePossible)
                     .attr("height", assumptionsNodeSize)                    
                     .attr("fill", "white")
                     .attr("stroke", "black")
+                    .attr("stroke-width", "3px")
                     .attr("id", "statisticalTest")
                     .attr("class", "assumptionNodes");  
 
@@ -709,9 +734,9 @@ function drawAssumptionNodes(postHocComparisonsArePossible)
                         .attr("width", settingsButtonImageWidth*1.1)
                         .attr("height", settingsButtonImageWidth*1.1)
                         .attr("fill", "url(#buttonFillNormal)")
-                        .attr("filter", "url(#Bevel)")
+                        .attr("rx", 4)
+                        .attr("ry", 4)
                         .attr("stroke", "black")
-                        .attr("stroke-width", scaleForWindowSize(4) )
                         .attr("id", "settingsButtonBack")
                         .attr("class", "settingsButtons");
 
@@ -804,8 +829,8 @@ function drawNormalityPlot(dependentVariable, level, type)
 
     plotCanvas.append("text")
                 .attr("x", centerX)
-                .attr("y", plotPanelHeight + 2*normalityPlotOffset + normalityPlotHeight - axesOffset)
-                .text(fP(pValues[indexOfLevel], false, false))
+                .attr("y", plotPanelHeight + 2*normalityPlotOffset + normalityPlotHeight - axesOffset + 20)
+                .text("p = " + fP(pValues[indexOfLevel], false, false))
                 .attr("text-anchor", "middle")
                 .attr("font-size", scaleForWindowSize(16))
                 .attr("class", "densityCurve");
@@ -814,7 +839,7 @@ function drawNormalityPlot(dependentVariable, level, type)
     {
         plotCanvas.append("text")
                     .attr("x", plotPanelWidth/2)
-                    .attr("y", plotPanelHeight + 2*normalityPlotOffset + normalityPlotHeight)
+                    .attr("y", plotPanelHeight + 2*normalityPlotOffset + normalityPlotHeight + 10)
                     .text("p-values are from Shapiro-Wilk test. (Higher than .05 suggests normal distribution.)")
                     .attr("text-anchor", "middle")
                     .attr("font-size", scaleForWindowSize(16))
@@ -1157,14 +1182,14 @@ function displaySignificanceTestResults()
         
     }
 
-    var partialReportText = multiVariateTestResults["rawP"] < 0.05 ? " shows that there is a significant effect" : " shows that there is no significant effect"; 
-    resultsCanvas.append("text")
-                            .attr("x", resultsPanelWidth/2)
-                            .attr("y", resultsPanelHeight - significanceTestResultStep)
-                            .attr("text-anchor", "middle")
-                            .attr("font-size", fontSizes["result one-liner"])
-                            .text(multiVariateTestResults["method"] + partialReportText)
-                            .attr("class", "significanceTest");
+    // var partialReportText = multiVariateTestResults["rawP"] < 0.05 ? " shows that there is a significant effect" : " shows that there is no significant effect"; 
+    // resultsCanvas.append("text")
+    //                         .attr("x", resultsPanelWidth/2)
+    //                         .attr("y", resultsPanelHeight - significanceTestResultStep)
+    //                         .attr("text-anchor", "middle")
+    //                         .attr("font-size", fontSizes["result one-liner"])
+    //                         .text(multiVariateTestResults["method"] + partialReportText)
+    //                         .attr("class", "significanceTest");
         
 
     // Save reporting text for ANOVAs so that it can be displayed again for post-hoc tests
@@ -1536,10 +1561,11 @@ function drawEffectSize(value, type, resultsCanvas)
                     .attr("y", T - yAxisTickTextOffset)
                     .attr("transform", "rotate (-45 " + (L + scale(-effectSizeInterpretations[type][i])) + " " + (T - yAxisTickTextOffset) + ")")
                     .attr("text-anchor", "start")
-                    .attr("font-size", scaleForWindowSize(14) )
+                    .attr("font-size", fontSizes["effectSizeInterpretationIndicators"])
                     .text(effectSizeInterpretationIndicators[i])
                     .attr("fill", getColor(type, effectSizeInterpretations[type][i]))
-                    .attr("display", "none")
+                    .style("font-weight", fontWeight)
+                    .attr("display", "none")         
                     .attr("class", "effectSizeInterpretationIndicators");
         }
     

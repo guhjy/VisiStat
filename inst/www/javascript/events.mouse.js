@@ -192,7 +192,7 @@ function OnMouseDown(e)
                 }
 
                 // reset the viewbox of the plotCanvas
-                d3.select("#plotCanvas").attr("viewBox", "0 0 " + plotPanelWidth + " " + plotPanelHeight);
+                d3.select("#plotCanvas").transition().duration(1000).attr("viewBox", "0 0 " + plotPanelWidth + " " + plotPanelHeight);
 
                 // change the appearance of texts
                 d3.select("#statisticalTestName.assumptionNodes").attr("text-decoration", "none");
@@ -227,14 +227,14 @@ function OnMouseDown(e)
                 }
 
                 // reset the viewbox of the plotCanvas
-                d3.select("#plotCanvas").attr("viewBox", "0 0 " + plotPanelWidth + " " + plotPanelHeight);
+                d3.select("#plotCanvas").transition().duration(1000).attr("viewBox", "0 0 " + plotPanelWidth + " " + plotPanelHeight);
 
                 // change the appearance of texts
                 d3.select("#statisticalTestName.assumptionNodes").attr("text-decoration", "underline");
                 d3.select("#postHocTestName.assumptionNodes").attr("text-decoration", "none");
 
                 // shrink the visualization
-                d3.select("#plotCanvas").attr("viewBox", "0 0 " + (plotPanelWidth*1.67) + " " + plotPanelHeight).attr("preserveAspectRatio", "xMidYMid meet");                
+                d3.select("#plotCanvas").transition().duration(1000).attr("viewBox", "500 0 " + plotPanelWidth + " " + plotPanelHeight).attr("preserveAspectRatio", "xMidYMid meet");                
 
                 // determine the appropriate pairwise post-hoc test (default => all pairs)
                 doPostHocTests();                
@@ -255,7 +255,7 @@ function OnMouseDown(e)
                 setup(e, target);
 
                 // shrink the visualization
-                d3.select("#plotCanvas").attr("viewBox", "0 0 " + (plotPanelWidth*1.67) + " " + plotPanelHeight).attr("preserveAspectRatio", "xMidYMid meet");
+                d3.select("#plotCanvas").transition().duration(1000).attr("viewBox", "500 0 " + plotPanelWidth + " " + plotPanelHeight).attr("preserveAspectRatio", "xMidYMid meet");                
 
                 // add entry to decision tree on top
                 addEntryToDecisionTreeNodes();
@@ -458,7 +458,7 @@ function OnMouseDown(e)
 
                     highlightPath(canvas);
 
-                    settingsButtonBack.attr("fill", "url(#buttonFillNormal)").attr("filter", "url(#Bevel)");
+                    settingsButtonBack.attr("fill", "url(#buttonFillNormal)");
 
                     // Back button to get back to the plot
 
@@ -941,6 +941,7 @@ function OnMouseDown(e)
                                 incompleteLines.attr("x2", meanCircle.attr("cx"))
                                                .attr("y2", meanCircle.attr("cy"))
                                                .attr("stroke", meanColors["click"])
+                                               .attr("stroke-width", "3px")
                                                .attr("class", "completeLines");
                                        
                                 removeElementsByClassName("indicator");
@@ -1017,15 +1018,15 @@ function OnMouseDown(e)
                 var buttonText = "Compare the Selected Distributions";
                 drawButton(buttonText, "compareNow");                               
 
-                drawButton("Select none", "selectNone", assumptionsPanelWidth*0.25, assumptionsPanelHeight*0.5, "assumptionsCanvas");
-                drawButton("Select all", "selectAll", assumptionsPanelWidth*0.75, assumptionsPanelHeight*0.5, "assumptionsCanvas");
+                // drawButton("Select none", "selectNone", assumptionsPanelWidth*0.25, assumptionsPanelHeight*0.5, "assumptionsCanvas");
+                // drawButton("Select all", "selectAll", assumptionsPanelWidth*0.75, assumptionsPanelHeight*0.5, "assumptionsCanvas");
         
                 freezeMouseEvents = true;
 
-                d3.selectAll(".IQRs, .medians, .TOPFringes, .BOTTOMFringes, .TOPFringeConnectors, .BOTTOMFringeConnectors, .outliers, .CIs, .CITopFringes, .CIBottomFringes").transition().duration(500).style("opacity", "0.35");
+                d3.selectAll(".IQRs, .medians, .TOPFringes, .BOTTOMFringes, .TOPFringeConnectors, .BOTTOMFringeConnectors, .outliers, .CIs, .CITopFringes, .CIBottomFringes").transition().duration(500).style("opacity", "0.8");
                 d3.selectAll(".means").transition().duration(500).attr("r", engorgedMeanRadius);
 
-                selectAllMeans();
+                // selectAllMeans();
 
                 var selectNoneText = d3.select("#text.selectNone");
                 var selectNoneButton = d3.select("#button.selectNone");
@@ -1033,11 +1034,11 @@ function OnMouseDown(e)
                 var selectAllText = d3.select("#text.selectAll");
                 var selectAllButton = d3.select("#button.selectAll");
 
-                selectAllButton.attr("fill", "url(#buttonFillSelected)");
-                selectAllButton.attr("filter", "none");
-                selectAllButton.attr("stroke", "none");
+                selectNoneButton.attr("fill", "url(#buttonFillSelected)");
+                selectNoneButton.attr("filter", "none");
+                selectNoneButton.attr("stroke", "none");
             
-                selectAllText.attr("fill", "white");
+                selectNoneText.attr("fill", "white");
             
                 setTimeout(function()
                 {
@@ -1312,11 +1313,11 @@ function OnMouseDown(e)
                 var buttonText = "Compare the Selected Distributions";
                 drawButton(buttonText, "compareNow");                               
 
-                drawButton("Select none", "selectNone", assumptionsPanelWidth*0.25, assumptionsPanelHeight*0.5, "assumptionsCanvas");
-                drawButton("Select all", "selectAll", assumptionsPanelWidth*0.75, assumptionsPanelHeight*0.5, "assumptionsCanvas");
+                // drawButton("Select none", "selectNone", assumptionsPanelWidth*0.25, assumptionsPanelHeight*0.5, "assumptionsCanvas");
+                // drawButton("Select all", "selectAll", assumptionsPanelWidth*0.75, assumptionsPanelHeight*0.5, "assumptionsCanvas");
     
                 freezeMouseEvents = true;
-                d3.selectAll(".IQRs, .medians, .TOPFringes, .BOTTOMFringes, .TOPFringeConnectors, .BOTTOMFringeConnectors, .outliers, .CIs, .CITopFringes, .CIBottomFringes").transition().duration(500).style("opacity", "0.35");
+                d3.selectAll(".IQRs, .medians, .TOPFringes, .BOTTOMFringes, .TOPFringeConnectors, .BOTTOMFringeConnectors, .outliers, .CIs, .CITopFringes, .CIBottomFringes").transition().duration(500).style("opacity", "0.8");
                 d3.selectAll(".means").transition().duration(500).attr("r", engorgedMeanRadius);
         
                 setTimeout(function()
@@ -2010,10 +2011,10 @@ function OnMouseOver(e)
                 setup(e, target);                
                 var element = d3.select("#" + target.id + ".assumptionNodes");                           
 
-                if(element.style("text-decoration") == "underline")
+                // if(element.style("text-decoration") == "underline")
                     element.style("cursor", "pointer");
-                else
-                    element.style("cursor", "default");
+                // else
+                //     element.style("cursor", "default");
             }
             if((target.className.baseVal == "clickablesButton") || (target.className.baseVal == "clickablesText"))
             {

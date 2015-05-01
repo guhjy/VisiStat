@@ -505,7 +505,7 @@ function setSelectButtons()
         selectAllButton.attr("filter", "none");
         selectAllButton.attr("stroke", "none");
         
-        selectAllText.attr("fill", "white");
+        selectAllText.attr("fill", "black");
         
         selectNoneButton.attr("fill", "url(#buttonFillNormal)");
         selectNoneButton.attr("filter", "url(#Bevel)");

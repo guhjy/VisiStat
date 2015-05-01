@@ -1,6 +1,6 @@
 .bins
 {
-    stroke: black;
+    stroke: white;
 }
 
 .xAxisGrooves, .yAxisGrooves
@@ -10,7 +10,7 @@
 
 .medians
 {
-    stroke: black;
+    /*stroke: black;*/
 }
 
 .TOPFringeConnectors,.BOTTOMFringeConnectors
@@ -24,7 +24,7 @@
 }
 .means
 {
-    stroke: black;   
+    /*stroke: black;   */
 }
 
 .displayDataTable
@@ -120,7 +120,7 @@ body
 
 span.outlierTooltip
 {
-    font-size: 0.8em;
+    font-size: 0.95em;
     font-style: italic;
     color: LightGray;
 }

@@ -86,7 +86,7 @@ function handleAssumptions(assumptionText)
                                 removeElementsByClassName("densityCurve");
                                 var homogeneityText = d3.select("#homogeneity.assumptionsText");                                           
                                 d3.select("#effectsPlotPanel").attr("style", "display: none");
-                                d3.select("#statisticalTestName.assumptionNodes").attr("text-decoration", "underline");
+                                // d3.select("#statisticalTestName.assumptionNodes").attr("text-decoration", "underline");
                                 
                                 homogeneityText.attr("fill", "black");
                                 removeElementsByClassName("tempDisplay")
@@ -95,7 +95,7 @@ function handleAssumptions(assumptionText)
                         
                                 var dependentVariable = variableList["dependent"][0];
 
-                                d3.select("#plotCanvas").transition().duration(1000).attr("viewBox", "0 0 " + plotPanelWidth + " " + scaledPlotPanelHeight);
+                                d3.select("#plotCanvas").transition().duration(1000).attr("viewBox", "100 300 " + (plotPanelWidth * 0.75) + " " + (plotPanelHeight * 0.75));
                                 drawAdvancedPlotButton();
 
                                 if(variableList["independent"].length == 2)
@@ -176,7 +176,7 @@ function handleAssumptions(assumptionText)
                                 var normalityText = d3.select("#normality.assumptionsText");                                                                                       
                                 normalityText.attr("fill", "black");
                                 d3.select("#effectsPlotPanel").attr("style", "display: none");
-                                d3.select("#statisticalTestName.assumptionNodes").attr("text-decoration", "underline");
+                                // d3.select("#statisticalTestName.assumptionNodes").attr("text-decoration", "underline");
                                 removeElementsByClassName("tempDisplay")
 
                                 var variableList = sort(selectedVariables);
@@ -184,6 +184,7 @@ function handleAssumptions(assumptionText)
                                 var homogeneity = d3.select("#homogeneity.assumptionNodes").attr("fill") == "green" ? true : false;
 
                                 d3.select("#plotCanvas").transition().duration(1000).attr("viewBox", "0 0 " + plotPanelWidth + " " + scaledPlotPanelHeight);
+                                d3.select("#plotCanvas").transition().delay(2000).duration(1000).attr("viewBox", "100 400 " + (plotPanelWidth * 0.75) + " " + (plotPanelHeight * 0.75));
                                 drawAdvancedPlotButton();        
                                 drawHomogeneityPlot(homogeneity);                                               
 

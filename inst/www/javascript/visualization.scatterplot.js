@@ -17,7 +17,7 @@ function makeScatterplot()
     var RIGHT = plotPanelWidth/2 + plotWidth/2;
     
     var TOP = plotPanelHeight/2 - plotHeight/2;
-    var BOTTOM = plotPanelHeight/2 + plotHeight/2;
+    var BOTTOM = plotPanelHeight/2 + plotHeight/2 - 15;
 
     var data = new Object(); 
     var mins = new Object();
@@ -157,7 +157,7 @@ function makeScatterplot()
     //grooves
     for(i=0; i<numberOfGroovesInXAxis; i++)
     {
-        axisText = dec2(mins["X"] + i*xSlice);
+        axisText = d3.round(mins["X"] + i*xSlice);
         textPosition = LEFT + i*xStep;
         
         if(uniqueDataX.length <= numberOfGrooves)
@@ -187,7 +187,7 @@ function makeScatterplot()
     
     for(i=0; i<numberOfGroovesInYAxis; i++)
     {
-        axisText = dec2(mins["Y"] + i*ySlice);
+        axisText = d3.round(mins["Y"] + i*ySlice);
         textPosition = BOTTOM - i*yStep;                  
         
         if(uniqueDataY.length <= numberOfGrooves)
@@ -375,7 +375,7 @@ function makeScatterplotHistory()
     //grooves
     for(i=0; i<numberOfGroovesInXAxis; i++)
     {
-        axisText = dec2(mins["X"] + i*xSlice);
+        axisText = d3.round(mins["X"] + i*xSlice);
         textPosition = LEFT + i*xStep;
         
         if(uniqueDataX.length <= numberOfGrooves)
@@ -404,7 +404,7 @@ function makeScatterplotHistory()
     
     for(i=0; i<numberOfGroovesInYAxis; i++)
     {
-        axisText = dec2(mins["Y"] + i*ySlice);
+        axisText = d3.round(mins["Y"] + i*ySlice);
         textPosition = BOTTOM - i*yStep;                  
         
         if(uniqueDataY.length <= numberOfGrooves)

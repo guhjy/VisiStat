@@ -21,6 +21,7 @@ class PartialTestLogger
    * @return {integer}       [the number of partial tests used]
   ###
   countMatchingTests: (dv, ivs...) ->
+    return 0 unless @log.hasOwnProperty(dv)
     @log[dv][@ivKey(ivs)]
 
   ###*
@@ -29,6 +30,7 @@ class PartialTestLogger
    * @param  {string(s)} ivs [one or multiple strings of IV names]
   ###
   resetMatchingTests: (dv, ivs...) ->
+    return 0 unless @log.hasOwnProperty(dv)
     @log[dv][@ivKey(ivs)] = 0
 
   # TODO: Update function name once variable model is set
@@ -65,6 +67,7 @@ class PartialTestLogger
  * @return {Boolean} true if over-testing
 ###
 checkIfOverTesting = ->
+  return unless listOfLevelsCompared.length > 0
 
   theLogger ?= new PartialTestLogger()
 
@@ -107,7 +110,13 @@ displayOverTestingPopup = (DV, IV) ->
   htmlText = ""
   
   # TODO: In AngularJS, make this a view.
-  htmlText += "<div class='overTestingHead'>Are these tests for single research questions?</div>" + "<div class='overTestingBody'>" + "You have compared the following pairs of " + fV(IV) + ":" + "<ul class='overTestingBody'>" + testedPairs.join() + "</ul>" + "Using multiple tests in one research question increases the probability of having a significant effect when there is really none (Type I error)." + "To avoid this error, we suggest using omni-bus test (e.g., ANOVA) followed by a post-hoc test instead. <br/>" + "</div>" + "<label class='overTesting'><input type='radio' name='test' onClick='doOmnibusTest()'/> The tests above are considered as <b>single</b> research question. " + "<span class='overTestingExplanation'>Perform omni-bus test: " + fV(DV) + " ~ " + fV(IV) + "(" + levels + "). </span></label>" + "<label class='overTesting'><input type='radio' name='test' onClick='continuePairwiseTesting()'/>The tests above are considered as <b>multiple</b> research questions." + "<span class='overTestingExplanation'>Continue with the tests you've selected.</span> </label>"
+  htmlText += "<div class='overTestingHead'>Possible false-positive</div>" + 
+            "<div class='overTestingBody'>" + "You have compared " + fV(IV) + " multiple times. " +
+            "Avoid increased false positive by comparing all "  + fV(IV) + " in a single run" +
+            "<label class='overTesting'><button class='btn btn-primary' onClick='root.VisiStat.OverTesting.doOmnibusTest()'/> Fix it for me" + 
+              "<span class='overTestingExplanation'>Perform omni-bus test: " + fV(DV) + " ~ " + fV(IV) + "(" + levels + "). </span></button></label>" + 
+                "<label class='overTesting'><button class='btn' onClick='root.VisiStat.OverTesting.continuePairwiseTesting()'/>Don't fix." + 
+                  "<span class='overTestingExplanation'>Suitable when each tests are individual research questions.</span></button> </label>"
   div.html htmlText
   return
 
@@ -136,7 +145,7 @@ doOmnibusTest = ->
   plotVisualisation() #checks which plot is selected and draws that plot
   setVisibilityOfVisualisations() #manages the fill colors of vizualizations (only one at a time) [ToDo]
   removeElementsByClassName "compareMean"
-  d3.selectAll(".IQRs, .medians, .TOPFringes, .BOTTOMFringes, .TOPFringeConnectors, .BOTTOMFringeConnectors, .outliers, .CIs, .CITopFringes, .CIBottomFringes").style "opacity", "0.35" # Make some elements of the boxplot transparent
+  d3.selectAll(".IQRs, .medians, .TOPFringes, .BOTTOMFringes, .TOPFringeConnectors, .BOTTOMFringeConnectors, .outliers, .CIs, .CITopFringes, .CIBottomFringes").style "opacity", "0.8" # Make some elements of the boxplot transparent
   selectAllMeans()
   compareMeans() # Perform the significance test
   
@@ -156,3 +165,5 @@ root = exports ? this
 root.VisiStat ?= {}
 root.VisiStat.OverTesting ?= {}
 root.VisiStat.OverTesting.checkIfOverTesting = checkIfOverTesting
+root.VisiStat.OverTesting.continuePairwiseTesting = continuePairwiseTesting
+root.VisiStat.OverTesting.doOmnibusTest = doOmnibusTest

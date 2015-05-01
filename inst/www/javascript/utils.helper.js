@@ -852,6 +852,8 @@ function logResult()
     addToolTip("statisticalTest", "assumptionNodes", displayText);
     d3.select("#statisticalTest.assumptionNodes").attr("fill", fillColor);
 
+    updateHistory(multiVariateTestResults["formula"]);    
+
     if(sessionStorage.getObject("variables.backup") != null)
     {
         variables = sessionStorage.getObject("variables.backup");
@@ -892,7 +894,6 @@ function logResult()
     var levels = (getSelectedVariables())["independent-levels"];
     variableLists.push(levels.slice(0));   
     
-    updateHistory(multiVariateTestResults["formula"]);    
 }
 
 function printLogList()
@@ -1023,11 +1024,11 @@ function addToolTip(id, className, displayText, displaySubText, targetID, target
 
     if(typeof(targetID) === "undefined")
     {
-        toolTips[key] = new Opentip($(key), {style: "dark", tipJoint: jointDirection});    
+        toolTips[key] = new Opentip($(key), {style: "dark", background: "#111", tipJoint: jointDirection});    
     }
     else
     {
-        toolTips[key] = new Opentip($(key), {style: "dark",  tipJoint: jointDirection, target: "#" + targetID + "." + targetClassName, fixed: true});
+        toolTips[key] = new Opentip($(key), {style: "dark", background: "#111",  tipJoint: jointDirection, target: "#" + targetID + "." + targetClassName, fixed: true});
     }
 
     toolTips[key].setContent(displayText);

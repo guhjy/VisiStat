@@ -266,7 +266,7 @@ function makeScatterPlotAt(x,y,shortWidth, shortHeight, variableX, variableY, no
     //x-axis ticks
     for(i=0; i<numberOfGroovesInXAxis; i++)
     {
-        axisText = dec2(minX + i*xSlice);
+        axisText = d3.round(minX + i*xSlice);
         textPosition = x + i*xStep;
         
         var textAnchor = "middle";
@@ -308,7 +308,7 @@ function makeScatterPlotAt(x,y,shortWidth, shortHeight, variableX, variableY, no
     
     for(i=0; i<numberOfGroovesInYAxis; i++)
     {
-        axisText = dec2(minY + i*ySlice);
+        axisText = d3.round(minY + i*ySlice);
         textPosition = y - i*yStep;                  
         var offset = 0;
         

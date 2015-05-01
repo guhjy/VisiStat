@@ -59,7 +59,7 @@
                localStorage.setItem("index", 0);              
           
                // load details of default dataset (text entry study)
-               // changeDataset();
+               changeDataset();
             }
 
             function handleFile(files)
@@ -105,7 +105,7 @@
             // loads dataset properties when dataset is changed
             function changeDataset()
             {
-                fileName = $("#datasetList").val();                
+                fileName = "keyboard";                
                 sessionStorage.fileName = fileName;
                 sessionStorage.isUploadedFile = "no";
                                 
@@ -116,54 +116,9 @@
                 var dataTypes = variableTypesInDataset[fileName];
                 var variablesDiv = d3.select("#variablesDiv");
                 
-                // ?
-                removeElementsByClassName("variableList");
                
-                // construct table with variable names
-                var variablesTable = variablesDiv.append("table")
-                                        .attr("border", "1")
-                                        .attr("class", "variableList table")
-                                        .attr("align", "center");
-                                            
-                var tr = variablesTable.append("tr");
-                            
-                        tr.append("th").text("Variable");
-                        tr.append("th").text("Role");
-                        tr.append("th").text("Data type");
-                
-                for(var i=0; i<variables.length; i++)
-                {
-                    var tr = variablesTable.append("tr");                                        
-                             tr.append("td").text(variables[i]);
-                                
-                    var select = tr.append("td").append("select").attr("name", "role").attr("id", variables[i]).attr("class", "roleSelect");                    
-                    $(select[0]).change(checkRole);
-                    
-                    var unspecified = select.append("option").attr("value", "undefined").text("Undefined");
-                    var participant = select.append("option").attr("value", "ID").text("Participant or Subject Variable");
-                    var dependent = select.append("option").attr("value", "DV").text("Dependent Variable");
-                    var independent = select.append("option").attr("value", "IV").text("Independent Variable");
-                    
-                    switch(roles[i])
-                    {
-                        case "ID":
-                                            participant.attr("selected", "yes");
-                                            break;
-                        
-                        case "DV":
-                                            dependent.attr("selected", "yes");
-                                            break;
-                        
-                        case "IV":
-                                            independent.attr("selected", "yes");
-                                            break;
-                    }
-                    
-                    tr.append("td").text(dataTypes[i]);
-                }
-
                 // check role after each data set is loaded
-                checkRole();
+                // checkRole();
             }
             
             // called when user clicks on 'explore dataset'
@@ -256,6 +211,8 @@
         
         <div id="buttonWrapper">
             <input type="button" onclick="exploreDataset()" value="Start analysis" class="btn btn-primary" id="submitButton"/>
+        </div>
+        <div style="text-align: center; font-size: 0.8em; margin-top: 10px">We expect to relese stable version of Statsplorer in July 2015.<br/>Sign up for an email notification at <a href="http://hci.rwth-aachen.de/statsplorer">hci.rwth-aachen.de/statsplorer</a>.
         </div>
 
         <script type="text/javascript">

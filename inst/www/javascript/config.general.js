@@ -138,10 +138,10 @@ config.description = {};
 
     var fontSizes = new Object();
 
-    fontSizes["label"] = "14px";
-    fontSizes["tick"] = "10px";
+    fontSizes["label"] = "16px";
+    fontSizes["tick"] = "14px";
     fontSizes["bin text"] = "12px";
-    fontSizes["button label"] = "12px";
+    fontSizes["button label"] = "14px";
     fontSizes["boxplot.main difference"] = "14px";
     fontSizes["test result"] = "14px";  
     fontSizes["result one-liner"] = "10px";
@@ -164,7 +164,7 @@ config.description = {};
     radius["effectPlot.data point"] = "1.5px";
     radius["effectPlot.mean"] = "4px";
     radius["scatter plot"] = "1.5px";
-    radius["outlier"] = "3px";
+    radius["outlier"] = "5px";
 
     var fontSizeForDisplayDataTitle = scaleForWindowSize(36);
     var fontSizeForDisplayDataTableElements = scaleForWindowSize(20);
@@ -179,10 +179,10 @@ config.description = {};
     strokeWidth["tick"] = "1px";
     strokeWidth["axis"] = "1px";
     strokeWidth["histogram.bar"] = "1px";
-    strokeWidth["boxplot.box"] = "1px";
+    strokeWidth["boxplot.box"] = "2px";
     strokeWidth["boxplot.median"] = "4px";
     strokeWidth["boxplot.fringe"] = "0.5px";
-    strokeWidth["CI"] = "3px";
+    strokeWidth["CI"] = "2px";
     strokeWidth["history entry"] = "1px";
     strokeWidth["effect plot border"] = "0.5px";
     strokeWidth["variance"] = "25px";
@@ -216,10 +216,10 @@ var buttonColors = new Object();
     buttonColors["click"] = "BlanchedAlmond";
 
 //Define colors for histogram bars, color scatterplot
-var colors = ["#E6A960", "#D3E55F", "#5EA9D1", "#664E33", "#C45AD2", "#211F7C", "#479ED6", "#710012", "#F0DE4F", "#A5A5F6"];
+var colors = ["rgba(52, 124, 248, 1.0)", "rgba(178, 40, 10, 1.0)", "#5EA9D1", "#664E33", "#C45AD2", "#211F7C", "#479ED6", "#710012", "#F0DE4F", "#A5A5F6"];
 
 var meanColors = new Object(); //Colors for mean, and ?
-    meanColors["normal"] = "#374593";
+    meanColors["normal"] = "rgb(52, 124, 248)";
     meanColors["hover"] = "#99ff33";
     meanColors["click"] = "#729e38";
 
@@ -471,4 +471,4 @@ var fillColor = new Object();
 
     fillColor["scatter plot data point"] = "black";
     fillColor["mainEffect.mean"] = meanColors["normal"];
-    fillColor["CI"] = "#93D5E5";
+    fillColor["CI"] = "rgb(52, 124, 248)";

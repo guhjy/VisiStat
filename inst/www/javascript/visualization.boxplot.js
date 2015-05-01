@@ -230,10 +230,10 @@ function makeBoxPlotInPlotCanvas()
     
             canvas.append("text")
                         .attr("x", LEFT + i*xStep + xStep/2)
-                        .attr("y", BOTTOM + tickTextOffsetXAxis + axesOffset)                    
+                        .attr("y", BOTTOM + tickTextOffsetXAxis + axesOffset + 10)                    
                         .text(labels[i])
                         .attr("fill", "black")
-                        .attr("font-size", fontSizes["tick"] )
+                        .attr("font-size", "14px" )
                         .attr("text-anchor", "middle")
                         .attr("id", ids[i])
                         .attr("class", "xAxisGrooveText");
@@ -261,7 +261,7 @@ function makeBoxPlotInPlotCanvas()
         yAxisTexts.push(canvas.append("text")
                     .attr("x", LEFT - tickTextOffsetYAxis - axesOffset)
                     .attr("y", BOTTOM - i*yStep + parseFloat(fontSizes["tick"])/2)                    
-                    .text(dec2(min + i*slice))
+                    .text(d3.round(min + i*slice))
                     .attr("font-size", fontSizes["tick"] )
                     .attr("text-anchor", "end")
                     .attr("id", "groove" + i)
@@ -302,7 +302,7 @@ function makeBoxPlotInPlotCanvas()
                             .attr("height", getFraction(rectTop)*plotHeight - getFraction(rectBottom)*plotHeight)
                             .attr("width", widthOfEachBox)
                             .attr("fill", boxColor)
-                            .attr("stroke", "#111111")
+                            .attr("stroke", "rgba(0,0,0,0.3)")
                             .attr("stroke-width", strokeWidth["boxplot.box"])
                             .attr("id", ids[i])
                             .attr("class", "IQRs"));
@@ -314,7 +314,7 @@ function makeBoxPlotInPlotCanvas()
                             .attr("x2", LEFT + i*widthSlice + widthOfEachBox/2 + xStep/2)
                             .attr("y2", BOTTOM - getFraction(medians[i])*plotHeight)
                             .attr("id", ids[i])
-                            .attr("stroke", "#111111")
+                            .attr("stroke", "rgba(0,0,0,0.3)")
                             .attr("stroke-width", strokeWidth["boxplot.median"])
                             .attr("class", "medians"));
 
@@ -372,8 +372,8 @@ function makeBoxPlotInPlotCanvas()
                     .attr("id", ids[i])
                     .attr("class", "CITopFringes"));
 
-            addToolTip(ids[i], "CIs", dec2(CIs[i][1]), "Upper 95% confidence interval of mean", ids[i], "CITopFringes", "bottom");
-            addToolTip(ids[i], "CIs", dec2(CIs[i][0]), "Lower 95% confidence interval of mean", ids[i], "CIBottomFringes", "top");
+            addToolTip(ids[i], "CIs", dec2(CIs[i][1]), "Upper 95% CI", ids[i], "CITopFringes", "bottom");
+            addToolTip(ids[i], "CIs", dec2(CIs[i][0]), "Lower 95% CI", ids[i], "CIBottomFringes", "top");
             
             var outliers = getOutliers(data[i], TOPFringe, BOTTOMFringe);
             
@@ -383,12 +383,13 @@ function makeBoxPlotInPlotCanvas()
                         .attr("cx", plotPanelWidth/2 + i*widthSlice - plotWidth/2 + xStep/2)
                         .attr("cy", BOTTOM - getFraction(outliers[j])*plotHeight)
                         .attr("r", radius["outlier"])
-                        .attr("fill", "red")
-                        .attr("stroke", "none")
+                        .attr("fill", "white")
+                        .attr("stroke", "rgba(255,0,0,0.8)")
+                        .attr("stroke-width", "1px")
                         .attr("id", ids[i] + j)
                         .attr("class", "outliers");
 
-                addToolTip(ids[i] + j, "outliers", outliers[j], "This could be an outlier.");
+                addToolTip(ids[i] + j, "outliers", "Time = " + outliers[j], "Possible outlier");
             }
         
             var dataAttributeForIndependentVariableA, dataAttributeForIndependentVariableB;
@@ -943,7 +944,7 @@ function redrawBoxPlot(transformationType)
         yAxisTexts[i].transition().duration(boxPlotTransformationDuration)        
                     .attr("x", LEFT - tickTextOffsetYAxis - axesOffset)
                     .attr("y", BOTTOM - i*yStep + yAxisTickTextOffset)                    
-                    .text(dec2(min + i*slice))
+                    .text(d3.round(min + i*slice))
                     .attr("text-anchor", "end")
                     .attr("id", "groove" + i)
                     .attr("class", "yAxisGrooveText");
@@ -1389,7 +1390,7 @@ function drawHomogeneityPlot(homogeneity)
 
     canvas.append("text")   
             .attr("x", plotPanelWidth/2)
-            .attr("y", b + 5*axesOffset - 10)
+            .attr("y", b + 5*axesOffset - 23)
             .attr("font-size", fontSizes["assumptions.label"])
             .html("Levene's test: " + fP(sessionStorage.getObject("LeveneTestResultPValue")[0], "svg") + ". (Higher than .05 suggests similar variance.)") 
             .attr("text-anchor", "middle")
@@ -1529,6 +1530,7 @@ function selectMeansFromArray(meansToSelect, canvas)
                         .attr("y2", currentMean.attr("cy"))
                         .attr("stroke", meanColors["click"])    
                         .attr("stroke-dasharray", "5,5")
+                        .attr("stroke-width", "3px")
                         .attr("id", currentMean.attr("id"))
                         .attr("class", "completeLines");
         
@@ -1574,6 +1576,7 @@ function selectAllMeans()
                         .attr("stroke", meanColors["click"])
                         .attr("opacity", "0.1")
                         .attr("stroke-dasharray", "5,5")
+                        .attr("stroke-width", "3px")
                         .attr("class", "completeLines");
             
             line.transition().attr("opacity", "1.0");

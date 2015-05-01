@@ -61,7 +61,7 @@ function plotDecisionTree(canvas, decisionTree)
 	}	
 
 	canvas.rect(nodeSize, height - 3*nodeSize, decisionTreeWidth, 1.25*nodeSize).attr({stroke: "black", fill: "white", "stroke-dasharray": "5,5", id: "unavailableTests"});
-	canvas.text(marginLeft + decisionTreeWidth/2, height - 3*nodeSize + 1.25*nodeSize/2, "The appropriate test for the violation of statistical assumptions is not available in VisiStat. We choose the closest possible test.").attr({"text-anchor": "middle", "font-size": fontSizes["decision tree"]});
+	canvas.text(marginLeft + decisionTreeWidth/2, height - 3*nodeSize + 1.25*nodeSize/2, "Not support by Statsplorer").attr({"text-anchor": "middle", "font-size": fontSizes["decision tree"]});
 	
 	for(var i=0; i<unavailableTestParentIds.length; i++)
 	{		
@@ -141,8 +141,8 @@ function highlightPath(canvas)
 
 	var variableList = getSelectedVariables();
 
-	fillNodesForTestsWithHigherPower();
-	fillNodesForTestsWithLesserPower();
+	// fillNodesForTestsWithHigherPower();
+	// fillNodesForTestsWithLesserPower();
 	fillNodesForTestsWithIncorrectAssumptions();
 	
 	if((experimentalDesign == "within-groups") && (getWithinGroupVariable(variableList) == variableList["independent"][0]))

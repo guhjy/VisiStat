@@ -209,12 +209,15 @@ function callBackForFindTransformationForHomoscedasticity(output)
     
         // Draw button
         drawButton(buttonText, "transformToHomogeneity");
-        drawButton("Leave data as is and violate the assumption", "dontTransformToHomogeneity");
+        // drawButton("Leave data as is and violate the assumption", "dontTransformToHomogeneity");
+        drawButton("Don't transform", "dontTransformToHomogeneity");
     } 
 }
 
 function getTransformationButtonText(transformationType)
 {
+    return "Log transform data";
+
     var buttonText = "Transform data to satisfy the assumption using ";
 
     switch(transformationType)
@@ -300,6 +303,8 @@ function applyTransformationToDataset(transformationType)
 
     global.CIForSDs = {};
     computeCIForSDs(true, transformationType);
+
+    d3.selectAll(".xAxisGrooveText").attr("fill", "black");
 }
 
 function drawQQPlot(distribution, canvas)
