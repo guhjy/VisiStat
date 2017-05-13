@@ -1,7 +1,7 @@
 Package: VisiStat
-Type: OpenCPU Application
+Type: Package
 Version: 0.4
-Date: 20-11-2013
+Date: 2017-05-13
 Author: Krishna Subramanian
 Maintainer: Krishna <krishna.prasath.subramanian@rwth-aachen.de>
 Description: An application that allows users to statistics without much previous knowledge by showing the statistics in the context of visualizations.
